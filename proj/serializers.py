@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Usuario, Doador, Doacao, Tipo_Doacao, Admin, Fotos, Contato
+from .models import Usuario, Doador, Doacao, Tipo_Doacao, Admin, Fotos
 
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,7 +31,3 @@ class FotosSerializer(serializers.ModelSerializer):
         model = Fotos
         fields = '__all__'
 
-class ContatoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Contato
-        fields = ['id', 'nome', 'assunto', 'email', 'mensagem']

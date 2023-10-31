@@ -37,12 +37,6 @@ class Fotos(models.Model):
     link2 = models.ImageField(upload_to='images/')
     link3 = models.ImageField(upload_to='images/')
 
-class Contato(models.Model):
-    nome = models.CharField(max_length=100)
-    assunto = models.CharField(max_length=700)
-    email = models.EmailField()
-    mensagem = models.TextField()
-
 # class Image(models.Model):
 #     file = models.ImageField(upload_to='images/')
    
