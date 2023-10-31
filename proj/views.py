@@ -1,14 +1,13 @@
-from .models import Usuario, Doador, Doacao, Admin, Fotos, Tipo_Doacao
-from .serializers import UsuarioSerializer, DoadorSerializer, DoacaoSerializer, AdminSerializer, FotosSerializer, Tipo_DoacaoSerializer
+from .models import Usuario, Doador, Doacao, Admin, Fotos, Tipo_Doacao, Contato
+from .serializers import UsuarioSerializer, DoadorSerializer, DoacaoSerializer, AdminSerializer, FotosSerializer, Tipo_DoacaoSerializer, ContatoSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, viewsets, permissions
 from rest_framework.permissions import IsAuthenticated
+from django.core.mail import send_mail
+from django.core.validators import validate_email
+from django.conf import settings
 
-from rest_framework import viewsets, permissions
-
-# from .models import Image
-# from .serializers import ImageSerializer
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
@@ -37,9 +36,54 @@ class AdminViewSet(viewsets.ModelViewSet):
     
 class FotosViewSet(viewsets.ModelViewSet):
     queryset = Fotos.objects.all()
-    serializer_class = FotosSerializer
+    serializer_class = ContatoSerializer
     permission_classes = [permissions.AllowAny]
 
+class ContatoViewSet(viewsets.ModelViewSet):
+    queryset = Contato.objects.all()
+    serializer_class = ContatoSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            self.perform_create(serializer)
+            print('a')
+            nome = serializer.validated_data.get('nome')
+            assunto = serializer.validated_data.get('assunto')
+            email = serializer.validated_data.get('email')
+            mensagem = serializer.validated_data.get('mensagem')
+
+            try:
+                validate_email(email)
+            except ValidationError:
+                return Response({'error': 'Email inválido.'}, status=status.HTTP_400_BAD_REQUEST)
+            
+            mensagem_email = f'Nome: {nome}\nEmail: {email}\nMensagem: {mensagem}'
+            remetente = settings. EMAIL_HOST_USER
+            destinatario = settings.EMAIL_DESTINATARY   
+
+            send_mail(assunto, mensagem_email, remetente, [destinatario])
+
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response({'error': 'Os dados do formulário são inválidos.'}, status=status.HTTP_400_BAD_REQUEST)
+
+    
+    def list(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def retrieve(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def update(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def partial_update(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def destroy(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 # @api_view(['GET', 'POST'])
 # @permission_classes([IsAuthenticated])
 # def usuario_list(request, format=None):
