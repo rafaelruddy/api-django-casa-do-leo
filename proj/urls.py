@@ -22,14 +22,15 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers
-from proj.views import  AdminViewSet, FotosViewSet, DoacaoViewSet, DoadorViewSet, TipoDoacaoViewSet
+from proj.views import  AdminViewSet, FotosViewSet, DoacaoViewSet, DoadorViewSet, TipoDoacaoViewSet, ContatoViewSet
 
 router = routers.DefaultRouter()
 router.register('fotos', FotosViewSet, basename='foto')
 router.register('admins', AdminViewSet, basename='admin')
 router.register('doacoes', DoacaoViewSet, basename='doacao')
-router.register('doadores', DoadorViewSet, basename='doacao')
+router.register('doadores', DoadorViewSet, basename='doadores')
 router.register('tipo_doacao', TipoDoacaoViewSet, basename='tipo de doacao')
+router.register('contato', ContatoViewSet, basename='contato')
 # router.register('image', ImageViewSet, basename='image')
 
 
