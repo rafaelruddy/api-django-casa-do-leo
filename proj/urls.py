@@ -17,12 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from proj import views
-from rest_framework.urlpatterns import format_suffix_patterns
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers
-from proj.views import  AdminViewSet, FotosViewSet, DoacaoViewSet, DoadorViewSet, TipoDoacaoViewSet, ContatoViewSet
+from proj.views import  FotosViewSet, DoacaoViewSet, DoadorViewSet, TipoDoacaoViewSet, ContatoViewSet, AdminViewSet
 
 router = routers.DefaultRouter()
 router.register('fotos', FotosViewSet, basename='foto')
@@ -31,17 +29,10 @@ router.register('doacoes', DoacaoViewSet, basename='doacao')
 router.register('doadores', DoadorViewSet, basename='doadores')
 router.register('tipo_doacao', TipoDoacaoViewSet, basename='tipo de doacao')
 router.register('contato', ContatoViewSet, basename='contato')
-# router.register('image', ImageViewSet, basename='image')
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('token/', TokenObtainPairView.as_view()),
-    # path('token/refresh', TokenRefreshView.as_view()),
-    # path('usuarios/', views.usuario_list),
-    # path('usuarios/<int:id>', views.usuario_detail),
-    # path('doadores/', views.doador_list),
-    # path('doadores/<int:id>', views.doador_detail),
     path('', include(router.urls))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
