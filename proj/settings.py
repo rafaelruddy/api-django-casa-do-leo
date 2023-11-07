@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'rest_framework',
-    'rest_framework_simplejwt',
     'corsheaders',
     'proj',
     'django.contrib.admin',
@@ -175,3 +174,4 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Cors (determines which urls can access your data. Only required for browser access)
 
 CORS_ALLOW_ALL_ORIGINS = True  # Not required, but convenient for testing
+CORS_ALLOW_CREDENTIALS = True

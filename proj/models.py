@@ -89,8 +89,7 @@ class Fotos(models.Model):
     data = models.DateField()
     desc = models.CharField(max_length=1000)
     link1 = models.ImageField(upload_to='images/')
-    link2 = models.ImageField(upload_to='images/')
-    link3 = models.ImageField(upload_to='images/')
+    titulo = models.CharField(max_length=200)
 
 class Contato(models.Model):
     nome = models.CharField(max_length=100)

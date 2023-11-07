@@ -19,8 +19,8 @@ class UsuarioViewSet(viewsets.ModelViewSet):
 class DoadorViewSet(viewsets.ModelViewSet):
     queryset = Doador.objects.all()
     serializer_class = DoadorSerializer
-    authentication_classes = [SessionAuthentication]  
-    permission_classes = [IsAuthenticated] 
+    # authentication_classes = [SessionAuthentication]  
+    # permission_classes = [IsAuthenticated] 
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
