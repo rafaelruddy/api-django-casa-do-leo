@@ -19,8 +19,8 @@ class UsuarioViewSet(viewsets.ModelViewSet):
 class DoadorViewSet(viewsets.ModelViewSet):
     queryset = Doador.objects.all()
     serializer_class = DoadorSerializer
-    # authentication_classes = [SessionAuthentication]  
-    # permission_classes = [IsAuthenticated] 
+    authentication_classes = [SessionAuthentication]  
+    permission_classes = [IsAuthenticated] 
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -39,7 +39,8 @@ class DoacaoViewSet(viewsets.ModelViewSet):
 class TipoDoacaoViewSet(viewsets.ModelViewSet):
     queryset = Tipo_Doacao.objects.all()
     serializer_class = Tipo_DoacaoSerializer
-    permission_classes = [permissions.AllowAny]
+    authentication_classes = [SessionAuthentication]  
+    permission_classes = [IsAuthenticated] 
 
 
 class AdminViewSet(viewsets.ModelViewSet):
@@ -87,6 +88,8 @@ class ContatoViewSet(viewsets.ModelViewSet):
     queryset = Contato.objects.all()
     serializer_class = ContatoSerializer
     permission_classes = [permissions.AllowAny]
+    http_method_names = ['post']
+
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -113,17 +116,17 @@ class ContatoViewSet(viewsets.ModelViewSet):
         return Response({'message': 'Os dados do formulário são inválidos.'}, status=status.HTTP_400_BAD_REQUEST)
 
     
-    def list(self, request, *args, **kwargs):
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    # def list(self, request, *args, **kwargs):
+    #     return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-    def retrieve(self, request, *args, **kwargs):
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    # def retrieve(self, request, *args, **kwargs):
+    #     return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-    def update(self, request, *args, **kwargs):
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    # def update(self, request, *args, **kwargs):
+    #     return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-    def partial_update(self, request, *args, **kwargs):
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    # def partial_update(self, request, *args, **kwargs):
+    #     return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-    def destroy(self, request, *args, **kwargs):
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    # def destroy(self, request, *args, **kwargs):
+    #     return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
