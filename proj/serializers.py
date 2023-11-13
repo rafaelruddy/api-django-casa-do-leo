@@ -18,7 +18,7 @@ class DoacaoSerializer(serializers.ModelSerializer):
     tipo_doacao = serializers.SerializerMethodField()
     class Meta:
         model = Doacao
-        fields = ['id', 'data', 'nome_doador', 'tipo_doacao', 'quantidade']
+        fields = ['id', 'data', 'doador', 'tipo', 'nome_doador', 'tipo_doacao', 'quantidade']
 
     def get_nome_doador(self, obj):
         return obj.doador.nome

@@ -16,6 +16,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     serializer_class = UsuarioSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+
 class DoadorViewSet(viewsets.ModelViewSet):
     queryset = Doador.objects.all()
     serializer_class = DoadorSerializer
@@ -35,6 +36,22 @@ class DoacaoViewSet(viewsets.ModelViewSet):
     queryset = Doacao.objects.all()
     serializer_class = DoacaoSerializer
     permission_classes = [permissions.AllowAny]
+
+    @action(detail=False, methods=['get'])
+    def infos(self, request, pk=None):
+        doadores = Doador.objects.all()
+        tipo_doacoes = Tipo_Doacao.objects.all()
+
+        serializer_doadores = DoadorSerializer(doadores, many=True)
+        serializer_tipo_doacao = Tipo_DoacaoSerializer(tipo_doacoes, many=True)
+        status_code = status.HTTP_201_CREATED
+
+
+        return Response({
+            'doadores': serializer_doadores.data,
+            'tipo_doacoes': serializer_tipo_doacao.data
+        }, status=status_code)
+
 
 class TipoDoacaoViewSet(viewsets.ModelViewSet):
     queryset = Tipo_Doacao.objects.all()
@@ -69,7 +86,6 @@ class AdminViewSet(viewsets.ModelViewSet):
     
     @action(detail=False, methods=['post'], serializer_class = LoginSerializer)
     def login(self, request, pk=None):
-        serializer_class = LoginSerializer
         email = request.data.get('email')
         password = request.data.get('password')
         user = authenticate(email=email, password=password)

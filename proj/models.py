@@ -15,6 +15,9 @@ class Doador(models.Model):
     endereco = models.CharField(max_length=500)
     telefone = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.nome
+
 class Doacao(models.Model):
     data = models.DateField()
     doador = models.ForeignKey(
