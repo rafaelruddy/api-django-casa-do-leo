@@ -96,7 +96,7 @@ class AdminViewSet(viewsets.ModelViewSet):
         return Response({'message': 'Login failed'}, status=status.HTTP_401_UNAUTHORIZED)
     
 class FotosViewSet(viewsets.ModelViewSet):
-    queryset = Fotos.objects.all()
+    queryset = Fotos.objects.all().order_by('data').reverse()
     serializer_class = FotosSerializer
     permission_classes = [permissions.AllowAny]
 
@@ -132,17 +132,3 @@ class ContatoViewSet(viewsets.ModelViewSet):
         return Response({'message': 'Os dados do formulário são inválidos.'}, status=status.HTTP_400_BAD_REQUEST)
 
     
-    # def list(self, request, *args, **kwargs):
-    #     return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
-    # def retrieve(self, request, *args, **kwargs):
-    #     return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
-    # def update(self, request, *args, **kwargs):
-    #     return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
-    # def partial_update(self, request, *args, **kwargs):
-    #     return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
-    # def destroy(self, request, *args, **kwargs):
-    #     return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)

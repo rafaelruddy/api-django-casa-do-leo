@@ -34,7 +34,6 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'rest_framework',
-    'rest_framework_simplejwt',
     'corsheaders',
     'proj',
     'django.contrib.admin',
@@ -122,7 +121,7 @@ AUTH_USER_MODEL = 'proj.Admin'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'sistema.casadoleo@gmail.com'
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_PASSWORD = 'warn mnqo huyn cgns'
 EMAIL_DESTINATARY = 'rafaelruddy@soulasalle.com.br'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
